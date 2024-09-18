@@ -38,8 +38,6 @@ android {
 }
 
 dependencies {
-    compile rootProject.ext.supportV7
+    implementation 'com.android.support:appcompat-v7:25.3.0'
 }
 
-apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
-apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'

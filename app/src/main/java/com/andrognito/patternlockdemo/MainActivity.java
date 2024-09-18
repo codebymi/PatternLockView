@@ -10,9 +10,6 @@ import com.andrognito.patternlockview.PatternLockView;
 import com.andrognito.patternlockview.listener.PatternLockViewListener;
 import com.andrognito.patternlockview.utils.PatternLockUtils;
 import com.andrognito.patternlockview.utils.ResourceUtils;
-import com.andrognito.rxpatternlockview.RxPatternLockView;
-import com.andrognito.rxpatternlockview.events.PatternLockCompleteEvent;
-import com.andrognito.rxpatternlockview.events.PatternLockCompoundEvent;
 
 import java.util.List;
 
@@ -70,30 +67,6 @@ public class MainActivity extends AppCompatActivity {
         mPatternLockView.setInputEnabled(true);
         mPatternLockView.addPatternLockListener(mPatternLockViewListener);
 
-        RxPatternLockView.patternComplete(mPatternLockView)
-                .subscribe(new Consumer<PatternLockCompleteEvent>() {
-                    @Override
-                    public void accept(PatternLockCompleteEvent patternLockCompleteEvent) throws Exception {
-                        Log.d(getClass().getName(), "Complete: " + patternLockCompleteEvent.getPattern().toString());
-                    }
-                });
 
-        RxPatternLockView.patternChanges(mPatternLockView)
-                .subscribe(new Consumer<PatternLockCompoundEvent>() {
-                    @Override
-                    public void accept(PatternLockCompoundEvent event) throws Exception {
-                        if (event.getEventType() == PatternLockCompoundEvent.EventType.PATTERN_STARTED) {
-                            Log.d(getClass().getName(), "Pattern drawing started");
-                        } else if (event.getEventType() == PatternLockCompoundEvent.EventType.PATTERN_PROGRESS) {
-                            Log.d(getClass().getName(), "Pattern progress: " +
-                                    PatternLockUtils.patternToString(mPatternLockView, event.getPattern()));
-                        } else if (event.getEventType() == PatternLockCompoundEvent.EventType.PATTERN_COMPLETE) {
-                            Log.d(getClass().getName(), "Pattern complete: " +
-                                    PatternLockUtils.patternToString(mPatternLockView, event.getPattern()));
-                        } else if (event.getEventType() == PatternLockCompoundEvent.EventType.PATTERN_CLEARED) {
-                            Log.d(getClass().getName(), "Pattern has been cleared");
-                        }
-                    }
-                });
     }
 }
